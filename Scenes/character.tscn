@@ -1,0 +1,73 @@
+[gd_scene load_steps=8 format=3 uid="uid://etxtsvy2xvl7"]
+
+[ext_resource type="Script" uid="uid://ngd1f2pj5itx" path="res://Scripts/character_body_2d.gd" id="1_ushfy"]
+[ext_resource type="Texture2D" uid="uid://7mtaulb2vmr3" path="res://Assets/practice_yy.png" id="2_owm7s"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ushfy"]
+height = 56.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrtme"]
+atlas = ExtResource("2_owm7s")
+region = Rect2(32, 31, 32, 67)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kg40p"]
+atlas = ExtResource("2_owm7s")
+region = Rect2(96, 31, 32, 67)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4wrkh"]
+atlas = ExtResource("2_owm7s")
+region = Rect2(160, 31, 32, 67)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_px5sl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrtme")
+}],
+"loop": true,
+"name": &"black",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kg40p")
+}],
+"loop": true,
+"name": &"both",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4wrkh")
+}],
+"loop": true,
+"name": &"white",
+"speed": 5.0
+}]
+
+[node name="Character" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_ushfy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_ushfy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+sprite_frames = SubResource("SpriteFrames_px5sl")
+animation = &"black"
+
+[node name="jump_timer" type="Timer" parent="CharacterBody2D"]
+wait_time = 0.111
+one_shot = true
+
+[node name="dash_timer" type="Timer" parent="CharacterBody2D"]
+wait_time = 0.136
+one_shot = true
+
+[node name="coyote_timer" type="Timer" parent="CharacterBody2D"]
+wait_time = 0.061
+one_shot = true
+
+[connection signal="timeout" from="CharacterBody2D/coyote_timer" to="CharacterBody2D" method="_on_coyote_timer_timeout"]
