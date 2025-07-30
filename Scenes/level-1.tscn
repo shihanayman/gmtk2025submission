@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://dysx4t5n6bk4a"]
+
+[ext_resource type="Script" uid="uid://d0o5spy22dtbk" path="res://Scripts/level_1.gd" id="1_5cdcw"]
+[ext_resource type="PackedScene" uid="uid://bq6klx7r2ucke" path="res://Scenes/character.tscn" id="1_pso2v"]
+[ext_resource type="PackedScene" uid="uid://bh54d6mvafor2" path="res://Scenes/feather.tscn" id="2_5cdcw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4rc3e"]
+size = Vector2(1165, 63)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ps50"]
+size = Vector2(157, 651)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xsek"]
+size = Vector2(875, 112)
+
+[node name="level-1" type="Node2D"]
+script = ExtResource("1_5cdcw")
+
+[node name="Character" parent="." instance=ExtResource("1_pso2v")]
+position = Vector2(566, 262)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 2.0
+offset_top = 592.0
+offset_right = 1163.0
+offset_bottom = 643.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="ColorRect"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect/StaticBody2D"]
+position = Vector2(579, 28)
+shape = SubResource("RectangleShape2D_4rc3e")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(587, 326)
+zoom = Vector2(0.5, 0.5)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_left = 1017.0
+offset_top = 3.0
+offset_right = 1171.0
+offset_bottom = 647.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="ColorRect2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect2/StaticBody2D"]
+position = Vector2(68.5, 315.5)
+shape = SubResource("RectangleShape2D_6ps50")
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+offset_left = 1165.0
+offset_top = 3.0
+offset_right = 2032.0
+offset_bottom = 105.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="ColorRect3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect3/StaticBody2D"]
+position = Vector2(427.5, 46)
+shape = SubResource("RectangleShape2D_3xsek")
+
+[node name="feather" parent="." instance=ExtResource("2_5cdcw")]
+position = Vector2(404, 348)
+
+[connection signal="body_entered" from="feather/Area2D" to="Character/CharacterBody2D" method="_on_area_2d_body_entered"]
+
+[editable path="Character"]
+[editable path="feather"]
